@@ -1,0 +1,52 @@
+ayursutra Backend Package Setup Guide
+1️⃣ Create Backend Folder
+mkdir backend
+cd backend
+
+2️⃣ Initialize Node.js Project
+npm init -y
+
+3️⃣ Create Main Folders
+mkdir controllers models routes middleware config utils
+
+4️⃣ Create Files
+type nul > server.js
+type nul > .env
+
+
+type nul > filename is the Windows CMD way to create empty files
+
+5️⃣ (Optional) Create Sub-folders Example
+mkdir routes/auth routes/user
+mkdir controllers/auth controllers/user
+
+6️⃣ Install Required Backend Packages
+npm install express dotenv cors mongoose jsonwebtoken bcryptjs multer express-validator cookie-parser morgan helmet
+
+7️⃣ Install Dev Dependency
+npm install --save-dev nodemon
+
+8️⃣ Update package.json (Manually)
+
+Add this inside "scripts":
+
+"scripts": {
+  "start": "node server.js",
+  "dev": "nodemon server.js"
+}
+
+9️⃣ Folder Structure Result
+backend
+│── controllers
+│── models
+│── routes
+│── middleware
+│── config
+│── utils
+│── server.js
+│── .env
+│── package.json
+│── node_modules
+
+🔟 Run Server
+npm run dev
