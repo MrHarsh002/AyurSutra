@@ -24,18 +24,18 @@ const app = express();
 // Connect to Database
 connectDB();
 
-const allowedOrigins = [
-  'http://localhost:3000',
-  'http://localhost:5000',
-  'http://localhost:5173',
-  'http://localhost:5174',
-];
+// const allowedOrigins = [
+//   'http://localhost:3000',
+//   'http://localhost:5000',
+//   'http://localhost:5173',
+//   'http://localhost:5174',
+// ];
 
 app.use(cors({
-  origin: allowedOrigins,
-  credentials: true,
-
+  origin: process.env.CLIENT_URL || true,
+  credentials: true
 }));
+
 
 
 app.use(express.json());
@@ -73,6 +73,8 @@ app.get('/', (req, res) => {
   res.send('API is running...');
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server running on port ${process.env.PORT}`);
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
