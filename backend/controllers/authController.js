@@ -2,11 +2,6 @@ const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModels");
 
-// Safe defaults for JWT configuration to avoid runtime crashes
-// Prefer setting JWT_SECRET and JWT_EXPIRE in environment variables in production
-const JWT_SECRET = process.env.JWT_SECRET || "change-this-secret-in-env";
-const JWT_EXPIRE = process.env.JWT_EXPIRE || "7d";
-
 /* ======================================================
    CREATE DEFAULT ADMIN (Auto run once)
 ====================================================== */
@@ -56,8 +51,8 @@ exports.register = async (req, res) => {
     // ✅ JWT TOKEN
     const token = jwt.sign(
       { id: user._id },
-      JWT_SECRET,
-      { expiresIn: JWT_EXPIRE }
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRE }
     );
 
     res.status(201).json({
@@ -73,7 +68,6 @@ exports.register = async (req, res) => {
     });
 
   } catch (error) {
-    console.error("Register error:", error);
     res.status(500).json({
       success: false,
       message: error.message
@@ -111,11 +105,11 @@ exports.login = async (req, res) => {
       });
     }
 
-    // ✅ JWT TOKEN
+    // ✅ JWT TOKEN (MOST IMPORTANT FIX)
     const token = jwt.sign(
-      { id: user._id },
-      JWT_SECRET,
-      { expiresIn: JWT_EXPIRE }
+      { id: user._id },          // 🔥 MUST BE id
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRE }
     );
 
     res.status(200).json({
@@ -132,7 +126,6 @@ exports.login = async (req, res) => {
     });
 
   } catch (error) {
-    console.error("Login error:", error);
     res.status(500).json({
       success: false,
       message: error.message
