@@ -23,7 +23,7 @@ const ResetPassword = () => {
     try {
       const { email, newPassword, confirmPassword } = data;
       const { data: response } = await axios.post(
-        "https://ayursutra-n7ii.onrender.com/api/auth/reset-password",
+        "http://localhost:5000/api/auth/reset-password",
         { email, newPassword, confirmPassword }
       );
       toast.success(response.message);
