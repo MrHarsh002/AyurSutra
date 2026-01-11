@@ -69,6 +69,10 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Server Error' });
 });
 
+app.get('/', (req, res) => {
+  res.send('API is running...');
+});
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
