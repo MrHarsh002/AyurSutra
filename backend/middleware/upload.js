@@ -1,23 +1,7 @@
 const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
 
-const uploadDir = path.join(__dirname, "../uploads/profile");
-
-// ✅ auto create folder
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadDir);
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = `profile_${Date.now()}${path.extname(file.originalname)}`;
-    cb(null, uniqueName);
-  },
-});
+// Use memory storage so files are not written to local disk
+const storage = multer.memoryStorage();
 
 const upload = multer({
   storage,

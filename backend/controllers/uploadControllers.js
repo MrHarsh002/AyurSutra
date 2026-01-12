@@ -1,6 +1,4 @@
 const cloudinary = require("../config/cloudinary");
-const fs = require("fs");
-const path = require("path");
 const User = require("../models/userModels");
 
 exports.uploadUserImage = async (req, res) => {
@@ -9,20 +7,29 @@ exports.uploadUserImage = async (req, res) => {
       return res.status(400).json({ message: "Image required" });
     }
 
-    // 🔹 Local file path (multer already saved it)
-    const localPath = `/uploads/profile/${req.file.filename}`;
+    // Upload the in-memory buffer directly to Cloudinary
+    const result = await new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder: "uploads/profile",
+          resource_type: "image",
+        },
+        (error, result) => {
+          if (error) {
+            return reject(error);
+          }
+          resolve(result);
+        }
+      );
 
-    // 🔹 Upload to Cloudinary
-    const result = await cloudinary.uploader.upload(req.file.path, {
-      folder: "uploads/profile",
+      uploadStream.end(req.file.buffer);
     });
 
-    // 🔥 SAVE CLOUDINARY URL IN DATABASE
+    // Save Cloudinary URL in database
     const user = await User.findByIdAndUpdate(
       req.user.id,
       {
-        photo: result.secure_url,   // for frontend display
-        photoLocal: localPath,      // optional: local backup
+        photo: result.secure_url,
       },
       { new: true }
     );
@@ -30,11 +37,9 @@ exports.uploadUserImage = async (req, res) => {
     res.status(200).json({
       success: true,
       cloudinaryUrl: result.secure_url,
-      localPath,
       public_id: result.public_id,
       user,
     });
-
   } catch (error) {
     console.error("Upload error:", error);
     res.status(500).json({ message: "Upload failed" });
