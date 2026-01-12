@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://ayursutra-n7ii.onrender.com/api",
+  baseURL: "http://localhost:5000/api",
 });
 
 // 🔐 AUTO ADD TOKEN
