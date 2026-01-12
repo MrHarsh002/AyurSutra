@@ -23,7 +23,7 @@ const ResetPassword = () => {
     try {
       const { email, newPassword, confirmPassword } = data;
       const { data: response } = await axios.post(
-        "http://localhost:5000/api/auth/reset-password",
+        "https://ayur-sutra-five.vercel.app/api/auth/reset-password",
         { email, newPassword, confirmPassword }
       );
       toast.success(response.message);

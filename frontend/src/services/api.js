@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "https://ayur-sutra-five.vercel.app/api",
 });
 
 // 🔐 AUTO ADD TOKEN
