@@ -25,10 +25,9 @@ const app = express();
 connectDB();
 
 const allowedOrigins = [
-  'http://localhost:3000',
-  'http://localhost:5000',
-  'http://localhost:5173',
-  'http://localhost:5174',
+  'https://ayur-sutra-r2kz.vercel.app/',
+  'https://ayur-sutra-five.vercel.app',
+  'http://localhost:3000'
 ];
 
 app.use(cors({
