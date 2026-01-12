@@ -24,15 +24,15 @@ const app = express();
 // Connect to Database
 connectDB();
 
-// const allowedOrigins = [
-//   'http://localhost:3000',
-//   'http://localhost:5000',
-//   'http://localhost:5173',
-//   'http://localhost:5174',
-// ];
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5000',
+  'http://localhost:5173',
+  'http://localhost:5174',
+];
 
 app.use(cors({
-  origin: process.env.CLIENT_URL || true,
+  origin: allowedOrigins,
   credentials: true
 }));
 
