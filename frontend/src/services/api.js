@@ -1,7 +1,16 @@
 import axios from "axios";
 
+// Choose API base URL based on where the frontend is running
+const isLocalhost =
+  window.location.hostname === "localhost" ||
+  window.location.hostname === "127.0.0.1";
+
+const API_BASE_URL = isLocalhost
+  ? "http://localhost:5000/api" // local backend
+  : "https://ayur-sutra-five.vercel.app/api"; // Vercel backend
+
 const api = axios.create({
-  baseURL: "https://ayur-sutra-five.vercel.app/api",
+  baseURL: API_BASE_URL,
   withCredentials: true,
 });
 
