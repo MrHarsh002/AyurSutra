@@ -552,7 +552,7 @@ const ChatBot = ({ onClose, initialLanguage = 'English' }) => {
       )}
 
       {/* Add CSS for animations */}
-      <style jsx>{`
+      <style>{`
         @keyframes bounce {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-5px); }

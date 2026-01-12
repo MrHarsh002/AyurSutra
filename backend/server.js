@@ -29,6 +29,11 @@ const allowedOrigins = [
   'https://ayur-sutra-r2kz.vercel.app',
   // Backend URL (for any server-to-server calls, if needed)
   'https://ayur-sutra-five.vercel.app',
+  // Local development (frontend)
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
 ];
 
 app.use(cors({
